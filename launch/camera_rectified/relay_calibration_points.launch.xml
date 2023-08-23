@@ -1,0 +1,13 @@
+<launch>
+  <!-- 声明要使用的参数 -->
+  <arg name="input_topic" default="/sensor_kit/sensor_kit_base_link/traffic_light_left_camera/camera_link/calibration_points"/>
+  <arg name="output_topic" default="/sensor_kit/sensor_kit_base_link/traffic_light_left_camera/calibration_points"/>
+
+  <!-- 启动 relay 节点来转发消息 -->
+  <node pkg="topic_tools" exec="relay" name="tl_camera_info_relay" output="log">
+    <param name="input_topic" value="$(var input_topic)"/>
+    <param name="output_topic" value="$(var output_topic)"/>
+    <param name="type" value="tier4_calibration_msgs/msg/CalibrationPoints"/>
+    <param name="reliability" value="reliable"/>
+  </node>
+</launch>
