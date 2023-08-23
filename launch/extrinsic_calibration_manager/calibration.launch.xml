@@ -21,23 +21,8 @@
 
   <include if="$(var logging_simulator)" file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/image_rectified.launch.py" />
   
-  <!-- logging simulator -->
-  <include if="$(var logging_simulator)" file="$(find-pkg-share autoware_launch)/launch/logging_simulator.launch.xml">
-    <arg name="sensor_model" value="$(var sensor_model)"/>
-    <arg name="vehicle_model" value="$(var vehicle_model)"/>
-    <arg name="vehicle_id" value="$(var vehicle_id)"/>
-    <arg name="map_path" value="$(var map_path)"/>
-    <arg name="lanelet2_map_file" value="$(var lanelet2_map_file)"/>
-    <arg name="pointcloud_map_file" value="$(var pointcloud_map_file)"/>
-    <arg name="vehicle" value="true"/>
-    <arg name="system" value="false"/>
-    <arg name="map" value="true"/>
-    <arg name="sensing" value="true"/>
-    <arg name="localization" value="true"/>
-    <arg name="perception" value="false"/>
-    <arg name="planning" value="false"/>
-    <arg name="control" value="false"/>
-    <arg name="rviz" value="false"/>
+ <!-- sensing start -->
+  <include if="$(var logging_simulator)" file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/sensing.launch.xml">
   </include>
 
 
