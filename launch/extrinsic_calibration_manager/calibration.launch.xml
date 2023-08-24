@@ -19,12 +19,9 @@
   <!-- interactive only -->
   <arg name="interactive_use_concatenated" default="true"/>
 
-  <include if="$(var logging_simulator)" file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/image_rectified.launch.py" />
   
  <!-- sensing start -->
-  <include if="$(var logging_simulator)" file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/sensing.launch.xml">
-  </include>
-
+  <include if="$(var logging_simulator)" file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/sensing.launch.xml" />
 
   <!-- fake transform -->
   <node pkg="tf2_ros" exec="static_transform_publisher" name="map2base_link" output="screen" args="0 0 0 0 0 0 map base_link"/>

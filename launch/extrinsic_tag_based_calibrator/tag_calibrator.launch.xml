@@ -10,11 +10,12 @@
   <arg name="child_frame"/>
   <!-- The camera frame. Not the optical one-->
   <arg name="lidar_model"/>
+  <arg name="apriltag_detections_topic"/>
   <!-- pandar_40p, pandar_qt-->
   <arg name="calibration_mode" default="automatic"/>
 
-  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/flir_camera/rectified/image_raw"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/flir_camera/rectified/camera_info"/>
+  <arg name="image_rectified_topic2" default="/sensing/camera/traffic_light/flir_camera/rectified/image_raw"/>
+  <arg name="camera_info_rectified_topic2" default="/sensing/camera/traffic_light/flir_camera/rectified/camera_info"/>
 
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/lidartag/lidartag_$(var lidar_model).launch.xml">
     <arg name="pointcloud_topic" value="$(var pointcloud_topic)"/>
@@ -23,6 +24,12 @@
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/extrinsic_tag_based_calibrator/apriltag_16h5.launch.py">
     <arg name="image_topic" value="$(var image_topic)"/>
     <arg name="camera_info_topic" value="$(var camera_info_topic)"/>
+    <arg name="apriltag_detections_topic" value="$(var apriltag_detections_topic)"/>
+  </include>
+
+  <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/cameratag_viz/viz.launch.py">
+    <arg name="image_topic" value="$(var image_rectified_topic2)"/>
+    <arg name="detections" value="$(var apriltag_detections_topic)"/>
   </include>
 
   <node pkg="extrinsic_tag_based_calibrator" exec="extrinsic_tag_based_calibrator" name="extrinsic_tag_based_calibrator_node" output="screen">
@@ -72,7 +79,7 @@
     <param name="apriltag_measurement_noise_transl" value="0.2"/>
     <param name="apriltag_process_noise_transl" value="0.02"/>
 
-    <remap from="image" to="$(var image_rectified_topic)"/>
-    <remap from="camera_info" to="$(var camera_info_rectified_topic)"/>
+    <remap from="image" to="$(var image_rectified_topic2)"/>
+    <remap from="camera_info" to="$(var camera_info_rectified_topic2)"/>
   </node>
 </launch>
