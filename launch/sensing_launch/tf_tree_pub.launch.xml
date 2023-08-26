@@ -9,28 +9,4 @@
 	<node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher">
 		<param name="robot_description" value="$(command 'xacro $(var model_file) vehicle_model:=$(var vehicle_model) sensor_model:=$(var sensor_model) config_dir:=$(var config_dir)' 'warn')"/>
 	</node>
-
-	<group>
-		<push-ros-namespace namespace="sensing"/>
-		<group>
-			<push-ros-namespace namespace="lidar"/>
-			<!-- <group>
-				<push-ros-namespace namespace="top"/>
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/ouster_top.composite.launch.py"/>
-			</group> -->
-
-			<group>
-				<push-ros-namespace namespace="ancillary"/>
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/ouster_ancillary.composite.launch.py"/>
-			</group>
-		</group>
-		<group>
-			<push-ros-namespace namespace="camera"/>
-			<group>
-				<push-ros-namespace namespace="traffic_light"/>
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/spinnaker_camera_driver.launch.py" />
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/camera_launch.py" />
-			</group>
-		</group>
-	</group>
 </launch>

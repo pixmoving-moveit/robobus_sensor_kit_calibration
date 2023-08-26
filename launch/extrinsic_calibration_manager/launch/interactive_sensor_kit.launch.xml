@@ -8,7 +8,10 @@
   <let name="image_topic" value="/sensing/camera/traffic_light/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="image_compressed_topic" value="/sensing/camera/traffic_light/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="camera_info_topic" value="/sensing/camera/traffic_light/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
+  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
+  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
 
+  
   <let name="pointcloud_topic" value="/sensing/lidar/top/ouster/points" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
 
   <let name="calibrate_sensor" value="false"/>
@@ -32,9 +35,6 @@
     <param name="child_frames" value="
     [$(var camera_frame)]"/>
   </node>
-
-  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
 
   <!-- interactive calibrator -->
   <group if="$(var calibrate_sensor)">

@@ -2,19 +2,23 @@
 <launch>
   <arg name="vehicle_id" default="default"/>
   <let name="sensor_model" value="robobus_sensor_kit"/>
-  <let name="parent_frame" value="sensor_kit_base_link"/>
+  <let name="parent_frame" value="os_lidar_ancillary"/>
   <let name="function_name" value="extrinsic_calibration_manager"/>
 
   <arg name="camera_name" default="traffic_light_left_camera"/>
   <arg name="rviz"/>
 
   <!-- we do not use the standard image_raw name to avoid naming conflicts -->
+  <let name="image_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
+  <let name="camera_info_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="image_compressed_topic" value="/sensing/camera/traffic_light/flir_camera/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="image_raw_topic" value="/sensing/camera/traffic_light/flir_camera/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="camera_info_topic" value="/sensing/camera/traffic_light/flir_camera/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="image_rectified_topic" value="/sensing/camera/traffic_light/flir_camera/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/flir_camera/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
   
+  <let name="image_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
+  <let name="camera_info_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
   <let name="image_compressed_topic" value="/sensing/camera/traffic_light/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
   <let name="image_raw_topic" value="/sensing/camera/traffic_light/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
   <let name="camera_info_topic" value="/sensing/camera/traffic_light/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
@@ -70,17 +74,22 @@
     </node>
   </group>
 
+  <!-- image decompressor -->
+  <!-- <node pkg="image_transport_decompressor" exec="image_transport_decompressor_node" name="decompressor" output="screen">
+    <remap from="decompressor/input/compressed_image" to="$(var image_compressed_topic)"/>
+    <remap from="decompressor/output/raw_image" to="$(var image_decompressed_topic)"/>
+
+    <remap from="decompressor/input/compressed_image/camera_info" to="$(var camera_info_topic)"/>
+    <remap from="decompressor/output/camera_info" to="$(var camera_info_decompressed_topic)"/>
+  </node> -->
+
   <!-- tag based calibrator -->
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/extrinsic_tag_based_calibrator/calibrator.launch.xml" if="$(var calibrate_sensor)">
     <arg name="ns" value="$(var parent_frame)/$(var camera_name)/camera_link"/>
     <arg name="parent_frame" value="$(var parent_frame)"/>
     <arg name="child_frame" value="$(var camera_frame)"/>
-
-    <arg name="image_topic" value="$(var image_raw_topic)"/>
-    <arg name="camera_info_topic" value="$(var camera_info_topic)"/>
-
-    <arg name="image_rectified_topic1" value="$(var image_rectified_topic)"/>
-    <arg name="camera_info_rectified_topic1" value="$(var camera_info_rectified_topic)"/>
+    <arg name="image_topic" value="$(var image_rectified_topic)"/>
+    <arg name="camera_info_topic" value="$(var camera_info_rectified_topic)"/>
     <arg name="apriltag_detections_topic" value="/sensor_kit/$(var parent_frame)/$(var camera_name)/camera_link/apriltag/detection_array"/>
 
     <arg name="lidar_model" value="$(var lidar_model)"/>
@@ -93,14 +102,9 @@
 
     <node pkg="extrinsic_interactive_calibrator" exec="interactive_calibrator" name="interactive_calibrator" output="screen">
       <remap from="pointcloud" to="$(var pointcloud_topic)"/>
-      <!-- <remap from="image" to="$(var image_raw_topic)"/>
-      <remap from="camera_info" to="$(var camera_info_topic)"/> -->
       <remap from="image" to="$(var image_rectified_topic)"/>
       <remap from="camera_info" to="$(var camera_info_rectified_topic)"/>
-      <!-- <remap from="image" to="$(var image_compressed_topic)"/>
-      <remap from="camera_info" to="$(var camera_info_topic)"/> -->
       <remap from="calibration_points_input" to="calibration_points"/>
-
       <param name="camera_parent_frame" value="$(var parent_frame)"/>
       <param name="camera_frame" value="$(var camera_frame)"/>
       <param name="use_calibration_api" value="false"/>
