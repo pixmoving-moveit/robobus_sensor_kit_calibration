@@ -77,12 +77,12 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: false
     - Class: rviz_default_plugins/Axes
-      Enabled: true
+      Enabled: false
       Length: 1
       Name: Axes
       Radius: 0.10000000149011612
       Reference Frame: os_lidar_ancillary
-      Value: true
+      Value: false
     - Class: rviz_default_plugins/Image
       Enabled: false
       Max Value: 1
@@ -461,6 +461,8 @@ Visualization Manager:
       Name: ID
       Namespaces:
         Text0: true
+        Text3: true
+        Text4: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -1127,7 +1129,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: os_sensor_ancillary
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -1170,7 +1172,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/XYOrbit
-      Distance: 5.234607219696045
+      Distance: 14.515978813171387
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -1185,10 +1187,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.360398530960083
+      Pitch: 0.49039843678474426
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz_default_plugins)
-      Yaw: 3.1135761737823486
+      Yaw: 0.25857633352279663
     Saved: ~
 Window Geometry:
   Camera:
