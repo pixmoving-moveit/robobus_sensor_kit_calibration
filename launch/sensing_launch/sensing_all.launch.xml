@@ -26,6 +26,8 @@
 
         <group>
         <push-ros-namespace namespace="lidar"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/rslidar.py" />
+
         <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/pointcloud_preprocessor.launch.py">
             <arg name="base_frame" value="base_link"/>
             <arg name="use_intra_process" value="true"/>
