@@ -7,7 +7,7 @@
 
 
     <!-- camera rect  -->
-    <include file="$(find-pkg-share output_rectified_image_py)/launch/image_rectified.launch.py" >
+    <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/image_rectified.launch.py" >
         <arg name="input_image_raw" value="$(var input_image_raw)"/>
         <arg name="input_camera_info" value="$(var input_camera_info)"/>
         <arg name="output_image_raw" value="$(var output_image_raw)"/>
