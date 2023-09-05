@@ -2,7 +2,7 @@
 <launch>
   <arg name="vehicle_id" default="default"/>
   <arg name="sensor_model" default="robobus_sensor_kit"/>
-  <arg name="camera_name"  default="traffic_light_left_camera"/>
+  <arg name="camera_name"  default="camera_top"/>
   <arg name="rviz" default="true"/>
   <arg name="use_concatenated_pointcloud" default="true"/>
   <let name="function_name" value="extrinsic_calibration_manager"/>

@@ -5,25 +5,25 @@
   <let name="parent_frame" value="os_lidar_ancillary"/>
   <let name="function_name" value="extrinsic_calibration_manager"/>
 
-  <arg name="camera_name" default="traffic_light_left_camera"/>
+  <arg name="camera_name" default="camera_top"/>
   <arg name="rviz"/>
 
   <!-- we do not use the standard image_raw name to avoid naming conflicts -->
-  <let name="image_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="camera_info_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="image_compressed_topic" value="/sensing/camera/traffic_light/flir_camera/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="image_raw_topic" value="/sensing/camera/traffic_light/flir_camera/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/traffic_light/flir_camera/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/flir_camera/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/flir_camera/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
+  <let name="image_decompressed_topic" value="/sensing/camera/top/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_decompressed_topic" value="/sensing/camera/top/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_compressed_topic" value="/sensing/camera/top/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_raw_topic" value="/sensing/camera/top/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_topic" value="/sensing/camera/top/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_rectified_topic" value="/sensing/camera/top/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_rectified_topic" value="/sensing/camera/top/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
   
-  <let name="image_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
-  <let name="camera_info_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
-  <let name="image_compressed_topic" value="/sensing/camera/traffic_light/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
-  <let name="image_raw_topic" value="/sensing/camera/traffic_light/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/traffic_light/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
+  <let name="image_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="camera_info_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_compressed_topic" value="/sensing/camera/traffic_light/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_raw_topic" value="/sensing/camera/traffic_light/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="camera_info_topic" value="/sensing/camera/traffic_light/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
 
   <let name="pointcloud_topic" value="/sensing/lidar/ancillary/ouster/points" />
 
@@ -31,20 +31,20 @@
   <let name="calibrate_sensor" value="true"/>
 
   <let name="camera_frame" value=""/>
-  <let name="camera_frame" value="traffic_light_left_camera" if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"/>
-  <let name="camera_frame" value="camera1" if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"/>
+  <let name="camera_frame" value="camera_top" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_frame" value="camera_front" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
 
   <let name="rviz_profile" value=""/>
   <let
     name="rviz_profile"
-    value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_traffic_light_camera_lidar_top.rviz"
-    if="$(eval &quot;'$(var camera_name)' == 'traffic_light_left_camera' &quot;)"
+    value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_camera_top_camera_lidar_top.rviz"
+    if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"
   />
 
   <let
     name="rviz_profile"
-    value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_camera1_lidar_top.rviz"
-    if="$(eval &quot;'$(var camera_name)' == 'camera1' &quot;)"
+    value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_camera_front_lidar_top.rviz"
+    if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"
   />
 
   <let name="lidar_model" value="os1_64"/>
@@ -67,7 +67,7 @@
     [$(var camera_frame)]"/>
   </node>
 
-  <let name="ns" value="/sensor_kit/sensor_kit_base_link/traffic_light_left_camera"/>
+  <let name="ns" value="/sensor_kit/sensor_kit_base_link/camera_top"/>
   <group>
     <push-ros-namespace namespace="$(var ns)"/>
     <node pkg="extrinsic_dummy_calibrator" exec="extrinsic_dummy_calibrator" name="extrinsic_dummy_calibrator" output="screen">
