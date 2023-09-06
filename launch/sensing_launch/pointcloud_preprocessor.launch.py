@@ -40,7 +40,7 @@ def launch_setup(context, *args, **kwargs):
                     "/sensing/lidar/rear_left/ouster/points",
                     "/sensing/lidar/rear_right/ouster/points"
                 ],
-                "output_frame": 'rs16',
+                "output_frame": 'sensor_top',
             }
         ],
         extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],

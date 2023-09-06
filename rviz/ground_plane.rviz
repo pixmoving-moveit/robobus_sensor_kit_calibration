@@ -134,7 +134,7 @@ Visualization Manager:
     - Class: rviz_default_plugins/Axes
       Enabled: false
       Length: 1
-      Name: rs16_top_base_link
+      Name: sensor_top_top_base_link
       Radius: 0.10000000149011612
       Reference Frame: ouster_top_base_link
       Value: false
