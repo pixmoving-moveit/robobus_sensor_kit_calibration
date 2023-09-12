@@ -19,15 +19,15 @@
 
     <group>
         <push-ros-namespace namespace="sensing"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/os_sensor_ancillary.launch.xml" />
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/os_sensor_fl.launch.xml" if="$(var launch_driver)"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/os_sensor_fr.launch.xml" if="$(var launch_driver)"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/os_sensor_rl.launch.xml" if="$(var launch_driver)"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch//os_sensor_rr.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_ancillary.launch.xml" />
+        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_fl.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_fr.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_rl.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_rr.launch.xml" if="$(var launch_driver)"/>
 
         <group>
         <push-ros-namespace namespace="lidar"/>
-        <!-- <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/rslidar.py" /> -->
+        <!-- <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/rslidar.py" /> -->
 
         <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/pointcloud_preprocessor.launch.py">
             <arg name="base_frame" value="base_link"/>
@@ -43,8 +43,8 @@
 			<push-ros-namespace namespace="camera"/>
 			<group>
 				<push-ros-namespace namespace="top"/>
-				<!-- <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/spinnaker_camera_driver.launch.py" /> -->
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/camera_usb_camera_top.launch.py" />
+				<!-- <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/camera/spinnaker_camera_driver.launch.py" /> -->
+				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/camera/camera_usb_camera_top.launch.py" />
 			</group>
 		</group>
     </group>
