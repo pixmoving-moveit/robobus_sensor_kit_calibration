@@ -14,10 +14,10 @@ def generate_launch_description():
     def add_launch_arg(name: str, default_value=None):
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
-    add_launch_arg("input_image_raw", "/sensing/camera/traffic_light/image_raw")
-    add_launch_arg("input_camera_info", "/sensing/camera/traffic_light/camera_info")
-    add_launch_arg("output_image_raw", "/sensing/camera/traffic_light/rectified/image_raw")
-    add_launch_arg("output_camera_info", "/sensing/camera/traffic_light/rectified/camera_info")
+    add_launch_arg("input_image_raw", "/sensing/camera/front/image_raw")
+    add_launch_arg("input_camera_info", "/sensing/camera/front/camera_info")
+    add_launch_arg("output_image_raw", "/sensing/camera/front/rectified/image_raw")
+    add_launch_arg("output_camera_info", "/sensing/camera/front/rectified/camera_info")
     node = Node(
       package='output_rectified_image_py',
       executable='output_rectified_image_py_node',

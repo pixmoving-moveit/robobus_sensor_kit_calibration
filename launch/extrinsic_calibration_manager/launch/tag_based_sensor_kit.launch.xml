@@ -17,13 +17,13 @@
   <let name="image_rectified_topic" value="/sensing/camera/top/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
   <let name="camera_info_rectified_topic" value="/sensing/camera/top/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
   
-  <let name="image_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="camera_info_decompressed_topic" value="/sensing/camera/traffic_light/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="image_compressed_topic" value="/sensing/camera/traffic_light/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="image_raw_topic" value="/sensing/camera/traffic_light/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/traffic_light/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_decompressed_topic" value="/sensing/camera/front/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="camera_info_decompressed_topic" value="/sensing/camera/front/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_compressed_topic" value="/sensing/camera/front/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_raw_topic" value="/sensing/camera/front/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="camera_info_topic" value="/sensing/camera/front/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_rectified_topic" value="/sensing/camera/front/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="camera_info_rectified_topic" value="/sensing/camera/front/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
 
   <let name="pointcloud_topic" value="/sensing/lidar/ancillary/ouster/points" />
 

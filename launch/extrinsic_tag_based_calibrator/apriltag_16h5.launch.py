@@ -23,8 +23,8 @@ def generate_launch_description():
     def add_launch_arg(name: str, default_value=None):
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
-    add_launch_arg("image_topic", "/sensing/camera/traffic_light/image_raw")
-    add_launch_arg("camera_info_topic", "/sensing/camera/traffic_light/flir_camera/camera_info")
+    add_launch_arg("image_topic", "/sensing/camera/top/image_raw")
+    add_launch_arg("camera_info_topic", "/sensing/camera/top/flir_camera/camera_info")
     add_launch_arg("apriltag_detections_topic", "/sensor_kit/sensor_kit_base_link/camera_top/camera_link/apriltag/detection_array")
 
     composable_node = ComposableNode(

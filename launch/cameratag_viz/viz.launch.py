@@ -12,7 +12,7 @@ def generate_launch_description():
     def add_launch_arg(name: str, default_value=None):
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
-    add_launch_arg("image_topic", "/sensing/camera/traffic_light/rectified/image_raw")
+    add_launch_arg("image_topic", "/sensing/camera/front/rectified/image_raw")
     add_launch_arg("detections", "/apriltag/detection_array")
 
     composable_node = ComposableNode(name='viz', package='apriltag_viz', plugin='AprilVizNode',
@@ -25,7 +25,7 @@ def generate_launch_description():
             package='rclcpp_components',
             executable='component_container',
             composable_node_descriptions=[composable_node],
-            remappings=[("/apriltag/image", "/sensing/camera/traffic_light/image_raw/decompressed")],
+            remappings=[("/apriltag/image", "/sensing/camera/front/image_raw/decompressed")],
             output='screen'
     )
 

@@ -5,11 +5,11 @@
   <arg name="parent_frame" default="sensor_kit_base_link"/>
   <arg name="camera_name" default="camera_top"/>
 
-  <let name="image_topic" value="/sensing/camera/traffic_light/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="image_compressed_topic" value="/sensing/camera/traffic_light/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/traffic_light/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/traffic_light/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/traffic_light/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_topic" value="/sensing/camera/top/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_compressed_topic" value="/sensing/camera/top/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_topic" value="/sensing/camera/top/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_rectified_topic" value="/sensing/camera/top/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_rectified_topic" value="/sensing/camera/top/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
 
   
   <let name="pointcloud_topic" value="/sensing/lidar/top/ouster/points" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
