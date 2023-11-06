@@ -35,12 +35,12 @@ def launch_setup(context, *args, **kwargs):
         parameters=[
             {
                 "input_topics": [
-                    "/sensing/lidar/front_left/ouster/points",
-                    "/sensing/lidar/front_right/ouster/points",
-                    "/sensing/lidar/rear_left/ouster/points",
-                    "/sensing/lidar/rear_right/ouster/points"
+                    "/sensing/lidar/front/livox/points",
+                    "/sensing/lidar/front_left/livox/points",
+                    "/sensing/lidar/front_right/livox/points",
+                    "/sensing/lidar/rear/ch128x1/points",
                 ],
-                "output_frame": 'sensor_top',
+                "output_frame": 'lidar_front_base_link',
             }
         ],
         extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
