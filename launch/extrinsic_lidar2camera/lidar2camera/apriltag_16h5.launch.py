@@ -6,11 +6,8 @@ from launch_ros.descriptions import ComposableNode
 
 # detect all 16h5 tags
 cfg_16h5 = {
-    # "image_transport": "compressed",
     "image_transport": "raw",
     "family": "16h5",
-    # "size": 0.162,
-    # "size": 0.532,
     "size": 0.8,
     "max_hamming": 0,
     "z_up": True,
@@ -23,9 +20,9 @@ def generate_launch_description():
     def add_launch_arg(name: str, default_value=None):
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
-    add_launch_arg("image_topic", "/sensing/camera/top/image_raw")
-    add_launch_arg("camera_info_topic", "/sensing/camera/top/flir_camera/camera_info")
-    add_launch_arg("apriltag_detections_topic", "/sensor_kit/sensor_kit_base_link/camera_top/camera_link/apriltag/detection_array")
+    add_launch_arg("image_topic", "/camera/image")
+    add_launch_arg("camera_info_topic", "/camera/camera_info")
+    add_launch_arg("apriltag_detections_topic", "apriltag/detection_array")
 
     composable_node = ComposableNode(
         name="apriltag",

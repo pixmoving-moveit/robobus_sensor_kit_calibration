@@ -9,18 +9,16 @@
   <arg name="camera_info_topic"/>
   <arg name="pointcloud_topic"/>
   <arg name="lidar_model"/>
-  <arg name="apriltag_detections_topic"/>
 
   <group>
     <push-ros-namespace namespace="$(var ns)"/>
-    <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/extrinsic_tag_based_calibrator/tag_calibrator.launch.xml">
+    <include file="$(find-pkg-share extrinsic_tag_based_calibrator)/launch/tag_calibrator.launch.xml">
       <arg name="parent_frame" value="$(var parent_frame)"/>
       <arg name="child_frame" value="$(var child_frame)"/>
       <arg name="image_topic" value="$(var image_topic)"/>
       <arg name="camera_info_topic" value="$(var camera_info_topic)"/>
       <arg name="pointcloud_topic" value="$(var pointcloud_topic)"/>
       <arg name="lidar_model" value="$(var lidar_model)"/>
-      <arg name="apriltag_detections_topic" value="$(var apriltag_detections_topic)"/>
     </include>
   </group>
 </launch>

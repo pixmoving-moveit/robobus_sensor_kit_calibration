@@ -1,4 +1,5 @@
 <launch>
+    <!-- 使用去畸变resize -->
     <arg name="apriltag_detections_topic" default="/apriltag/detection_array" />
     <let name="input_image_raw" value="/sensing/camera/top/image_raw" />
     <let name="input_camera_info" value="/sensing/camera/top/camera_info" />
