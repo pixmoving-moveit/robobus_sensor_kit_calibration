@@ -3,13 +3,12 @@
     <arg name="robot_state" default="true"/>
     <arg name="use_concat_filter" default="true"/>
     <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
-    <arg name="vehicle_mirror_param_file" default="$(find-pkg-share sample_vehicle_description)/config/mirror.param.yaml"/>
     <arg name="use_pointcloud_container" default="false" description="launch pointcloud container"/>
     <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
     <arg name="vehicle_model" default="robobus" description="vehicle model name"/>
 	<arg name="sensor_model" default="robobus_sensor_kit" description="sensor model name"/>
-	<arg name="config_dir" default="$(find-pkg-share $(var sensor_model)_description)/config" description="path to dir where sensors_calibration.yaml, etc. are located"/>
+	<arg name="config_dir" default="$(env HOME)/pix/parameter/sensor_kit/robobus_sensor_kit_description/extrinsic_parameters" description="path to dir where sensors_calibration.yaml, etc. are located"/>
 	<let name="model_file" value="$(find-pkg-share tier4_vehicle_launch)/urdf/vehicle.xacro" />
 
   	<!-- vehicle description -->
@@ -19,15 +18,14 @@
 
     <group>
         <push-ros-namespace namespace="sensing"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_ancillary.launch.xml" />
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_fl.launch.xml" if="$(var launch_driver)"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_fr.launch.xml" if="$(var launch_driver)"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_rl.launch.xml" if="$(var launch_driver)"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/os_sensor_rr.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_ancillary.launch.xml" />
+        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_fl.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_fr.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_rl.launch.xml" if="$(var launch_driver)"/>
+        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_rr.launch.xml" if="$(var launch_driver)"/>
 
         <group>
         <push-ros-namespace namespace="lidar"/>
-        <!-- <include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/lidar/rslidar.py" /> -->
 
         <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/pointcloud_preprocessor.launch.py">
             <arg name="base_frame" value="base_link"/>
@@ -43,8 +41,7 @@
 			<push-ros-namespace namespace="camera"/>
 			<group>
 				<push-ros-namespace namespace="top"/>
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/camera/spinnaker_camera_driver.launch.py" />
-				<include file="$(find-pkg-share robobus_sensor_kit_launch)/launch/camera/camera_usb_camera_top.launch.py" />
+				<include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/camera_usb_camera_top.launch.py" />
 			</group>
 		</group>
     </group>
