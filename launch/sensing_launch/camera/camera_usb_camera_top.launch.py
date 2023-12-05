@@ -53,9 +53,9 @@ def generate_launch_description():
     # get path to params file
     parameters={
         "video_device": "/dev/camera/top_6mm",
-        "framerate": 30.0,
+        "framerate": 10.0,
         "io_method": "mmap",
-        "frame_id": "camera_front_link",
+        "frame_id": "camera_top",
         "pixel_format": "uyvy2rgb",
         "image_width": 1920 ,
         "image_height": 1080,

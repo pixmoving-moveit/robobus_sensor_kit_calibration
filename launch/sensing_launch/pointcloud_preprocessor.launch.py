@@ -27,25 +27,45 @@ from launch_ros.descriptions import ComposableNode
 
 def launch_setup(context, *args, **kwargs):
     # set concat filter as a component
-    concat_component = ComposableNode(
+    # concat_component = ComposableNode(
+    #     package="pointcloud_preprocessor",
+    #     plugin="pointcloud_preprocessor::PointCloudConcatenateDataSynchronizerComponent",
+    #     name="concatenate_data",
+    #     remappings=[("output", "concatenated/pointcloud_unfilter")],
+    #     parameters=[
+    #         {
+    #             "input_topics": [
+    #                 "/sensing/lidar/front_left/ouster/points",
+    #                 "/sensing/lidar/front_right/ouster/points",
+    #                 "/sensing/lidar/rear_left/ouster/points",
+    #                 "/sensing/lidar/rear_right/ouster/points"
+    #             ],
+    #             "output_frame": 'sensor_top',
+    #         }
+    #     ],
+    #     extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
+    # )
+
+    # set concat filter as a component
+    concat_component_raw = ComposableNode(
         package="pointcloud_preprocessor",
-        plugin="pointcloud_preprocessor::PointCloudConcatenateDataSynchronizerComponent",
-        name="concatenate_data",
-        remappings=[("output", "concatenated/pointcloud_unfilter")],
+        plugin="pointcloud_preprocessor::PointCloudConcatenateDataSynchronizerOusterComponent",
+        name="concatenate_data_raw",
+        remappings=[("output", "concatenated/pointcloud_raw")],
         parameters=[
             {
                 "input_topics": [
                     "/sensing/lidar/front_left/ouster/points",
+                    "/sensing/lidar/rear_right/ouster/points",
                     "/sensing/lidar/front_right/ouster/points",
                     "/sensing/lidar/rear_left/ouster/points",
-                    "/sensing/lidar/rear_right/ouster/points"
                 ],
                 "output_frame": 'sensor_top',
             }
         ],
         extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
     )
-
+    
     # set container to run all required components in the same process
     container = ComposableNodeContainer(
         name=LaunchConfiguration("container_name"),
@@ -65,7 +85,7 @@ def launch_setup(context, *args, **kwargs):
 
     # load concat or passthrough filter
     concat_loader = LoadComposableNodes(
-        composable_node_descriptions=[concat_component],
+        composable_node_descriptions=[concat_component_raw],
         target_container=target_container,
         condition=IfCondition(LaunchConfiguration("use_concat_filter")),
     )

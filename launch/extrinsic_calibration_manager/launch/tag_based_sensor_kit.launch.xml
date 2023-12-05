@@ -9,52 +9,33 @@
   <arg name="rviz"/>
 
   <!-- we do not use the standard image_raw name to avoid naming conflicts -->
-  <let name="image_decompressed_topic" value="/sensing/camera/top/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="camera_info_decompressed_topic" value="/sensing/camera/top/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="image_compressed_topic" value="/sensing/camera/top/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="image_raw_topic" value="/sensing/camera/top/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/top/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/top/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/top/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  
-  <let name="image_decompressed_topic" value="/sensing/camera/front/image_raw/decompressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="camera_info_decompressed_topic" value="/sensing/camera/front/image_raw/decompressed/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="image_compressed_topic" value="/sensing/camera/front/image_raw/compressed" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="image_raw_topic" value="/sensing/camera/front/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/front/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/front/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/front/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
+  <let name="image_raw_topic" value="/sensing/camera/top/gmsl/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_topic" value="/sensing/camera/top/gmsl/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="image_rectified_topic" value="/sensing/camera/top/gmsl/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_info_rectified_topic" value="/sensing/camera/top/gmsl/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
 
-  <let name="pointcloud_topic" value="/sensing/lidar/ancillary/ouster/points" />
+  <let name="pointcloud_topic" value="/sensing/lidar/concatenated/pointcloud_raw" />
 
   <let name="calibrate_sensor" value="false"/>
   <let name="calibrate_sensor" value="true"/>
 
-  <let name="camera_frame" value=""/>
   <let name="camera_frame" value="camera_top" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
-  <let name="camera_frame" value="camera_front" if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"/>
 
-  <let name="rviz_profile" value=""/>
   <let
     name="rviz_profile"
     value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_camera_top_camera_lidar_top.rviz"
     if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"
   />
 
-  <let
-    name="rviz_profile"
-    value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_camera_front_lidar_top.rviz"
-    if="$(eval &quot;'$(var camera_name)' == 'camera_front' &quot;)"
-  />
-
   <let name="lidar_model" value="os1_64"/>
 
-  <node pkg="output_rectified_image_py" exec="output_rectified_image_py_node" name="output_rectified_image_py_node" output="screen" >
-    <remap from="input_image_raw" to="$(var image_raw_topic)"/>
-    <remap from="input_camera_info" to="$(var camera_info_topic)"/>
-    <remap from="output_image_raw" to="$(var image_rectified_topic)"/>
-    <remap from="output_camera_info" to="$(var camera_info_rectified_topic)"/>
-  </node>
+  <!-- camera rect  -->
+  <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/image_rectified.launch.py" >
+    <arg name="input_image_raw" value="$(var image_raw_topic)"/>
+    <arg name="input_camera_info" value="$(var camera_info_topic)"/>
+    <arg name="output_image_raw" value="$(var image_rectified_topic)"/>
+    <arg name="output_camera_info" value="$(var camera_info_rectified_topic)"/>
+  </include>
 
   <!-- extrinsic_calibration_client -->
   <arg name="src_yaml" default="$(find-pkg-share individual_params)/config/$(var vehicle_id)/$(var sensor_model)/sensor_kit_calibration.yaml"/>
@@ -73,15 +54,6 @@
     <node pkg="extrinsic_dummy_calibrator" exec="extrinsic_dummy_calibrator" name="extrinsic_dummy_calibrator" output="screen">
     </node>
   </group>
-
-  <!-- image decompressor -->
-  <!-- <node pkg="image_transport_decompressor" exec="image_transport_decompressor_node" name="decompressor" output="screen">
-    <remap from="decompressor/input/compressed_image" to="$(var image_compressed_topic)"/>
-    <remap from="decompressor/output/raw_image" to="$(var image_decompressed_topic)"/>
-
-    <remap from="decompressor/input/compressed_image/camera_info" to="$(var camera_info_topic)"/>
-    <remap from="decompressor/output/camera_info" to="$(var camera_info_decompressed_topic)"/>
-  </node> -->
 
   <!-- tag based calibrator -->
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/extrinsic_tag_based_calibrator/calibrator.launch.xml" if="$(var calibrate_sensor)">

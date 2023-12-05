@@ -18,7 +18,7 @@
 
     <group>
         <push-ros-namespace namespace="sensing"/>
-        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_ancillary.launch.xml" />
+        <!-- <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_ancillary.launch.xml" /> -->
         <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_fl.launch.xml" if="$(var launch_driver)"/>
         <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_fr.launch.xml" if="$(var launch_driver)"/>
         <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/lidar/os_sensor_rl.launch.xml" if="$(var launch_driver)"/>

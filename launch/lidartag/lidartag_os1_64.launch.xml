@@ -32,8 +32,8 @@
 
 <launch>
 
-  <!-- <arg name="pointcloud_topic" default="/sensing/lidar/top/outlier_filtered/pointcloud" /> -->
-  <arg name="pointcloud_topic" default="/sensing/lidar/ancillary/ouster/points" />
+  <arg name="pointcloud_topic" default="/sensing/lidar/concatenated/pointcloud_raw" />
+  <!-- <arg name="pointcloud_topic" default="/sensing/lidar/ancillary/ouster/points" /> -->
   <arg name="use_intensity_channel" default="true" />
 
   <include file="$(find-pkg-share lidartag)/launch/lidartag_master.launch.xml" >
@@ -42,7 +42,7 @@
     <arg name="use_intensity_channel" value="$(var use_intensity_channel)" />
     <arg name="beam_number" value="64" />
     <!-- <arg name="payload_intensity_threshold" value="0.001"/> -->
-    <arg name="use_organized_pointcloud" value="true"/>
+    <arg name="use_organized_pointcloud" value="false"/>
 
 
     <!-- list for marker sizes -->
