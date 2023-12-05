@@ -39,10 +39,7 @@
 
         <group>
 			<push-ros-namespace namespace="camera"/>
-			<group>
-				<push-ros-namespace namespace="top"/>
-				<include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/camera_usb_camera_top.launch.py" />
-			</group>
+            <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/camera_usb_camera_top.launch.py" />
 		</group>
     </group>
 

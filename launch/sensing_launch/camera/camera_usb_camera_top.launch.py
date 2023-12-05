@@ -56,7 +56,7 @@ def generate_launch_description():
         "framerate": 30.0,
         "io_method": "mmap",
         "frame_id": "camera_front_link",
-        "pixel_format": "yuyv2rgb",
+        "pixel_format": "uyvy2rgb",
         "image_width": 1920 ,
         "image_height": 1080,
         "camera_name": "gmsl_camera",

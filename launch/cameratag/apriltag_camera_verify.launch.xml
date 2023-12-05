@@ -1,9 +1,9 @@
 <launch>
     <arg name="apriltag_detections_topic" default="/apriltag/detection_array" />
-    <let name="input_image_raw" value="/sensing/camera/top/image_raw" />
-    <let name="input_camera_info" value="/sensing/camera/top/camera_info" />
-    <let name="output_image_raw" value="/sensing/camera/top/rectified/image_raw" />
-    <let name="output_camera_info" value="/sensing/camera/top/rectified/camera_info" />
+    <let name="input_image_raw" value="/sensing/camera/top/gmsl/image_raw" />
+    <let name="input_camera_info" value="/sensing/camera/top/gmsl/camera_info" />
+    <let name="output_image_raw" value="/sensing/camera/top/gmsl/rectified/image_raw" />
+    <let name="output_camera_info" value="/sensing/camera/top/gmsl/rectified/camera_info" />
 
 
     <!-- camera rect  -->
