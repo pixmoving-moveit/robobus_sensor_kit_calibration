@@ -12,6 +12,7 @@ cfg_16h5 = {
     # "size": 0.162,
     # "size": 0.532,
     "size": 0.8,
+    # "size": 0.595,
     "max_hamming": 0,
     "z_up": True,
 }
