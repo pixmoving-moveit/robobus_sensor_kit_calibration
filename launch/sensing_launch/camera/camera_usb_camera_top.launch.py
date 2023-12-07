@@ -56,11 +56,11 @@ def generate_launch_description():
         "video_device": "/dev/video0",
         "framerate": 10.0,
         "io_method": "mmap",
-        "frame_id": "camera_top",
+        "frame_id": "camera_top_link",
         "pixel_format": "uyvy2rgb",
         "image_width": 1920 ,
         "image_height": 1080,
-        "camera_name": "gmsl_camera",
+        "camera_name": "camera_top_6mm",
         "camera_info_url": "file://${ROS_HOME}/../pix/parameter/sensor_kit/robobus_sensor_kit_description/intrinsic_parameters/camera_top_6mm.yaml",
         # reusing same camera intrinsics only for demo, should really be unique for camera2"
         "brightness": -1,

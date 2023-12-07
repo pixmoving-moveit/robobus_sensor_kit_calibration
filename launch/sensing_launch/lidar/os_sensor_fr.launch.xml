@@ -74,7 +74,7 @@
       <param name="lidar_mode" value="$(var lidar_mode)"/>
       <param name="metadata" value="$(var metadata)"/>
       <param name="sensor_frame" value="os_sensor_fr"/>
-      <param name="lidar_frame" value="os_lidar_fr"/>
+      <param name="lidar_frame" value="lidar_fr_base_link"/>
       <param name="imu_frame" value="os_imu_fr"/>
       <param name="point_cloud_frame" value="$(var point_cloud_frame)"/>
       <param name="timestamp_mode" value="$(var timestamp_mode)"/>

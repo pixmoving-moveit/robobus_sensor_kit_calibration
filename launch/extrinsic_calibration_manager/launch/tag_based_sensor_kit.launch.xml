@@ -19,7 +19,7 @@
   <let name="calibrate_sensor" value="false"/>
   <let name="calibrate_sensor" value="true"/>
 
-  <let name="camera_frame" value="camera_top" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_frame" value="camera_top_link" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
 
   <let
     name="rviz_profile"

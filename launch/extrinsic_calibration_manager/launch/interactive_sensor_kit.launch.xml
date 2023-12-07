@@ -17,7 +17,7 @@
   <let name="calibrate_sensor" value="true" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
 
   <let name="camera_frame" value=""/>
-  <let name="camera_frame" value="camera_top" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
+  <let name="camera_frame" value="camera_top_link" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
 
   <!-- camera rect  -->
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/image_rectified.launch.py" >
