@@ -2,7 +2,7 @@
 <launch>
   <arg name="vehicle_id" default="default"/>
   <let name="sensor_model" value="robobus_sensor_kit"/>
-  <let name="parent_frame" value="os_lidar_ancillary"/>
+  <let name="parent_frame" value="sensor_kit_base_link"/>
   <let name="function_name" value="extrinsic_calibration_manager"/>
 
   <arg name="camera_name" default="camera_top"/>
