@@ -2,7 +2,7 @@
 <launch>
   <arg name="vehicle_id" default="default"/>
   <arg name="sensor_model" default="robobus_sensor_kit"/>
-  <arg name="parent_frame" default="sensor_top"/>
+  <arg name="parent_frame" default="sensor_kit_base_link"/>
   <arg name="camera_name" default="camera_top"/>
 
   <let name="image_raw_topic" value="/sensing/camera/top/gmsl/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top' &quot;)"/>
