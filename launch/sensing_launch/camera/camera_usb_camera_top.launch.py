@@ -53,11 +53,11 @@ def generate_launch_description():
     # get path to params file
     parameters={
         # "video_device": "/dev/camera/top_6mm",
-        "video_device": "/dev/video0",
+        "video_device": "/dev/video4",
         "framerate": 10.0,
         "io_method": "mmap",
         "frame_id": "camera_top_link",
-        "pixel_format": "uyvy2rgb",
+        "pixel_format": "yuyv2rgb",
         "image_width": 1920 ,
         "image_height": 1080,
         "camera_name": "camera_top_6mm",
