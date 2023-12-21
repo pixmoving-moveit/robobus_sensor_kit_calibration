@@ -46,7 +46,7 @@
 
 
     <!-- list for marker sizes -->
-    <arg name="tag_size_list" value="[1.0]" />
+    <arg name="tag_size_list" value="[1.2]" />
 
     <!-- Tunable for PoI clustering -->
     <arg name="nearby_factor" value="4.0" />
