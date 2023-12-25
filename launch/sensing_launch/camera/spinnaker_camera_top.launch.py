@@ -43,7 +43,7 @@ example_parameters = {
         # 'offset_x': 16,
         # 'offset_y': 0,
         'frame_rate_auto': 'Off',
-        'frame_rate': 40.0,
+        'frame_rate': 10.0,
         'frame_rate_enable': True,
         'buffer_queue_size': 1,
         'trigger_mode': 'Off',
@@ -106,21 +106,22 @@ def launch_setup(context, *args, **kwargs):
     """Launch camera driver node."""
     # parameter_file = LaunchConfig('parameter_file').perform(context)
     # camera_type = LaunchConfig('camera_type').perform(context)
-    serial_number = "22485232"
+    serial_number = "22495523"
     camera_type = 'blackfly_s'
     parameter_file = PathJoinSubstitution(
-        [FindPackageShare('robobus_sensor_kit_calibration'), 'launch', 'sensing_launch', 'camera'
+        [FindPackageShare('robobus_sensor_kit_calibration'), 'launch', 'sensing_launch', 'camera',
             camera_type + '.yaml'])
     
-    camerainfo_url = 'file://${ROS_HOME}/../pix/parameter/sensor_kit/robobus_sensor_kit_description/intrinsic_parameters/camera_top_12mm.yaml'
+    camerainfo_url = 'file://${ROS_HOME}/../pix/parameter/sensor_kit/robobus_sensor_kit_description/intrinsic_parameters/flir_top_12mm.yaml'
     
     node = Node(package='spinnaker_camera_driver',
                 executable='camera_driver_node',
                 output='screen',
-                name="flir_12mm",
+                name="top_gmsl",
+                namespace="top/gmsl",
                 parameters=[example_parameters[camera_type],
                             {'parameter_file': parameter_file,
-                             'frame_id': 'camera_top',
+                             'frame_id': 'camera_top_link',
                              'serial_number': serial_number,
                              'camerainfo_url': camerainfo_url
                              }
@@ -133,8 +134,8 @@ def launch_setup(context, *args, **kwargs):
 def generate_launch_description():
     """Create composable node by calling opaque function."""
     return LaunchDescription([
-        # LaunchArg('camera_name', default_value=['flir_camera'],
-        #           description='camera name (ros node name)'),
+        LaunchArg('camera_name', default_value=['flir_top_12mm'],
+                  description='camera name (ros node name)'),
         LaunchArg('camera_type', default_value='blackfly_s',
                   description='type of camera (blackfly_s, chameleon...)'),
         LaunchArg('serial', default_value="'20435008'",

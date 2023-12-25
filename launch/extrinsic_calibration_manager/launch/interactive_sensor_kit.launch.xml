@@ -40,7 +40,7 @@
       <param name="camera_parent_frame" value="$(var parent_frame)"/>
       <param name="camera_frame" value="$(var camera_frame)"/>
       <param name="use_compressed" value="false"/>
-      <param name="can_publish_tf" value="true"/>
+      <param name="can_publish_tf" value="false"/>
     </node>
 
     <include file="$(find-pkg-share intrinsic_camera_calibration)/launch/optimizer.launch.xml"/>
