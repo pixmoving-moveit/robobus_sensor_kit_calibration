@@ -7,7 +7,7 @@
     <arg name="pointcloud_container_name" default="pointcloud_container"/>
 
     <arg name="camera_type" default="sensing"  description="sensing/flir"/>
-
+    
     <arg name="vehicle_model" default="robobus" description="vehicle model name"/>
 	<arg name="sensor_model" default="robobus_sensor_kit" description="sensor model name"/>
 	<arg name="config_dir" default="$(env HOME)/pix/parameter/sensor_kit/robobus_sensor_kit_description/extrinsic_parameters" description="path to dir where sensors_calibration.yaml, etc. are located"/>
@@ -29,7 +29,7 @@
         <group>
         <push-ros-namespace namespace="lidar"/>
 
-        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/pointcloud_preprocessor.launch.py">
+        <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/pointcloud_preprocessor.launch.py" if="$(var robot_state)">
             <arg name="base_frame" value="base_link"/>
             <arg name="use_intra_process" value="true"/>
             <arg name="use_multithread" value="true"/>
@@ -45,5 +45,4 @@
             <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/spinnaker_camera_top.launch.py" if="$(eval &quot;'$(var camera_type)' == 'flir' &quot;)"/>
 		</group>
     </group>
-
 </launch>

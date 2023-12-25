@@ -1,0 +1,8 @@
+<launch>
+    <!-- 验证tf标定数据 -->
+    <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/lidartag/lidartag_os1_64.launch.xml"  >
+        <arg name="pointcloud_topic" value="/sensing/lidar/concatenated/pointcloud_raw"/>
+    </include>
+
+    <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(find-pkg-share robobus_sensor_kit_calibration)/rviz/lidar2top_camera-2.rviz"/>
+</launch>
