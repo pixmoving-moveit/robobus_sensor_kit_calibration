@@ -9,7 +9,7 @@
   <arg name="camera_info_topic"/>
   <arg name="pointcloud_topic"/>
   <arg name="lidar_model"/>
-  <arg name="apriltag_detections_topic"/>
+  <arg name="detections"/>
 
   <group>
     <push-ros-namespace namespace="$(var ns)"/>
@@ -20,7 +20,7 @@
       <arg name="camera_info_topic" value="$(var camera_info_topic)"/>
       <arg name="pointcloud_topic" value="$(var pointcloud_topic)"/>
       <arg name="lidar_model" value="$(var lidar_model)"/>
-      <arg name="apriltag_detections_topic" value="$(var apriltag_detections_topic)"/>
+      <arg name="detections" value="$(var detections)"/>
     </include>
   </group>
 </launch>

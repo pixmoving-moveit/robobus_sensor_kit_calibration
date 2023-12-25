@@ -13,12 +13,16 @@ def generate_launch_description():
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
     add_launch_arg("image_topic", "/sensing/camera/front/rectified/image_raw")
-    add_launch_arg("detections", "/apriltag/detection_array")
+    add_launch_arg("detections", "/sensor_kit/sensor_kit_base_link/top/gmsl/apriltag/detection_array")
 
-    composable_node = ComposableNode(name='viz', package='apriltag_viz', plugin='AprilVizNode',
+    composable_node = ComposableNode(
+                        name='viz', 
+                        package='apriltag_viz', 
+                        plugin='AprilVizNode',
                         remappings=[("image", LaunchConfiguration("image_topic")),
                                     ("detections", LaunchConfiguration("detections"))
-                                    ],)
+                                    ],
+                        )
     container = ComposableNodeContainer(
             name='viz_container',
             namespace='apriltag',

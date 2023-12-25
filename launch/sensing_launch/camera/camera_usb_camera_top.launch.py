@@ -52,8 +52,8 @@ def generate_launch_description():
     node_name = args.node_name
     # get path to params file
     parameters={
-        # "video_device": "/dev/camera/top_6mm",
-        "video_device": "/dev/video4",
+        "video_device": "/dev/camera/top_6mm",
+        # "video_device": "/dev/video4",
         "framerate": 10.0,
         "io_method": "mmap",
         "frame_id": "camera_top_link",

@@ -2,7 +2,7 @@
 <launch>
   <arg name="vehicle_id" default="default"/>
   <let name="sensor_model" value="robobus_sensor_kit"/>
-  <arg name="camera_name" default="camera_top_link"/>
+  <arg name="camera_name" default="top/gmsl"/>
   <arg name="rviz" default="true"/>
   <let name="function_name" value="extrinsic_calibration_manager"/>
 

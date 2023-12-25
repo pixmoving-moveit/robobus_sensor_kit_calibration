@@ -10,7 +10,8 @@
   <arg name="child_frame"/>
   <!-- The camera frame. Not the optical one-->
   <arg name="lidar_model"/>
-  <arg name="apriltag_detections_topic"/>
+  <arg name="detections"/>
+  
   <!-- pandar_40p, pandar_qt-->
   <arg name="calibration_mode" default="automatic"/>
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/lidartag/lidartag_$(var lidar_model).launch.xml">
@@ -20,12 +21,11 @@
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/extrinsic_tag_based_calibrator/apriltag_16h5.launch.py">
     <arg name="image_topic" value="$(var image_topic)"/>
     <arg name="camera_info_topic" value="$(var camera_info_topic)"/>
-    <arg name="apriltag_detections_topic" value="$(var apriltag_detections_topic)"/>
   </include>
 
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/cameratag_viz/viz.launch.py">
     <arg name="image_topic" value="$(var image_topic)"/>
-    <arg name="detections" value="$(var apriltag_detections_topic)"/>
+    <arg name="detections" value="$(var detections)"/>
   </include>
 
   <node pkg="extrinsic_tag_based_calibrator" exec="extrinsic_tag_based_calibrator" name="extrinsic_tag_based_calibrator_node" output="screen">
@@ -36,7 +36,7 @@
     <param name="calibration_mode" value="$(var calibration_mode)"/>
 
     <!-- filtering parameters -->
-    <param name="min_tag_size" value="0.8"/>
+    <param name="min_tag_size" value="1.2"/>
     <!--0.6 = 0.8 * 0.75 the apriltag size, not the lidartag-->
     <param name="max_tag_distance" value="20.0"/>
     <!-- <param name="max_tag_distance" value="60.0"/> -->
@@ -53,7 +53,7 @@
     <param name="max_no_observation_time" value="3.0"/>
     <param name="new_hypothesis_distance" value="1.5"/>
     <param name="tag_ids" value="[0, 3, 4, 5]"/>
-    <param name="tag_sizes" value="[1.0, 1.0, 1.0, 1.0]"/>
+    <param name="tag_sizes" value="[1.2, 1.2, 1.2, 1.2]"/>
     <!-- <param name="tag_sizes" value="[0.8051, 0.8051, 0.8051, 0.8051]"/> -->
     <!-- the sizes of tag_ids -->
 

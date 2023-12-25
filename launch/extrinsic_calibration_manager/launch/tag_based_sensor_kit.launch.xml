@@ -3,94 +3,80 @@
   <arg name="vehicle_id" default="default"/>
   <let name="sensor_model" value="robobus_sensor_kit"/>
   <let name="parent_frame" value="sensor_kit_base_link"/>
-  <let name="function_name" value="extrinsic_calibration_manager"/>
 
-  <arg name="camera_name" default="camera_top_link"/>
-  <arg name="rviz"/>
+  <arg name="camera_name" default="top/gmsl"/>
+  <arg name="rviz" default="true"/>
 
   <!-- we do not use the standard image_raw name to avoid naming conflicts -->
-  <let name="image_raw_topic" value="/sensing/camera/top/gmsl/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top_link' &quot;)"/>
-  <let name="camera_info_topic" value="/sensing/camera/top/gmsl/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top_link' &quot;)"/>
-  <let name="image_rectified_topic" value="/sensing/camera/top/gmsl/rectified/image_raw" if="$(eval &quot;'$(var camera_name)' == 'camera_top_link' &quot;)"/>
-  <let name="camera_info_rectified_topic" value="/sensing/camera/top/gmsl/rectified/camera_info" if="$(eval &quot;'$(var camera_name)' == 'camera_top_link' &quot;)"/>
+  <let name="image_decompressed_topic" value="/sensing/camera/$(var camera_name)/decompressed"/>
+  <let name="image_compressed_topic" value="/sensing/camera/$(var camera_name)/image_raw/compressed"/>
+  <let name="camera_info_topic" value="/sensing/camera/$(var camera_name)/camera_info"/>
 
   <let name="pointcloud_topic" value="/sensing/lidar/concatenated/pointcloud_raw" />
-
-  <let name="calibrate_sensor" value="false"/>
   <let name="calibrate_sensor" value="true"/>
-
-  <let name="camera_frame" value="camera_top_link" if="$(eval &quot;'$(var camera_name)' == 'camera_top_link' &quot;)"/>
+  <let name="camera_frame" value="camera_top_link" if="$(eval &quot;'$(var camera_name)' == 'top/gmsl' &quot;)"/>
 
   <let
     name="rviz_profile"
     value="$(find-pkg-share robobus_sensor_kit_calibration)/rviz/tag_calib_camera_top_camera_lidar_top.rviz"
-    if="$(eval &quot;'$(var camera_name)' == 'camera_top_link' &quot;)"
+    if="$(eval &quot;'$(var camera_name)' == 'top/gmsl' &quot;)"
   />
 
   <let name="lidar_model" value="os1_64"/>
-
-  <!-- camera rect  -->
-  <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/image_rectified.launch.py" >
-    <arg name="input_image_raw" value="$(var image_raw_topic)"/>
-    <arg name="input_camera_info" value="$(var camera_info_topic)"/>
-    <arg name="output_image_raw" value="$(var image_rectified_topic)"/>
-    <arg name="output_camera_info" value="$(var camera_info_rectified_topic)"/>
-  </include>
-
+  
   <!-- extrinsic_calibration_client -->
-  <!-- <arg name="src_yaml" default="$(find-pkg-share individual_params)/config/$(var vehicle_id)/$(var sensor_model)/sensor_kit_calibration.yaml"/>
-  <arg name="dst_yaml" default="$(env HOME)/sensor_kit_calibration.yaml"/> -->
+  <arg name="src_yaml" default="$(env HOME)/pix/parameter/sensor_kit/robobus_sensor_kit_description/extrinsic_parameters/sensor_kit_calibration.yaml"/>
+  <arg name="dst_yaml" default="$(env HOME)/sensor_kit_calibration.yaml"/>
+
+  <node pkg="extrinsic_calibration_client" exec="extrinsic_calibration_client" name="extrinsic_calibration_client" output="screen" if="$(var calibrate_sensor)">
+    <param name="src_path" value="$(var src_yaml)"/>
+    <param name="dst_path" value="$(var dst_yaml)"/>
+  </node>
 
   <!-- extrinsic_calibration_manager -->
-  <!-- <node pkg="extrinsic_calibration_manager" exec="extrinsic_calibration_manager" name="extrinsic_calibration_manager" output="screen" if="$(var calibrate_sensor)">
+  <node pkg="extrinsic_calibration_manager" exec="extrinsic_calibration_manager" name="extrinsic_calibration_manager" output="screen" if="$(var calibrate_sensor)">
     <param name="parent_frame" value="$(var parent_frame)"/>
     <param name="child_frames" value="
     [$(var camera_frame)]"/>
-  </node> -->
+  </node>
 
-  <let name="ns" value="/sensor_kit/sensor_kit_base_link/camera_top_link"/>
-  <group>
-    <push-ros-namespace namespace="$(var ns)"/>
-    <node pkg="extrinsic_dummy_calibrator" exec="extrinsic_dummy_calibrator" name="extrinsic_dummy_calibrator" output="screen">
-    </node>
-  </group>
+  <!-- image decompressor -->
+  <node pkg="image_transport_decompressor" exec="image_transport_decompressor_node" name="decompressor" output="screen">
+    <remap from="decompressor/input/compressed_image" to="$(var image_compressed_topic)"/>
+    <remap from="decompressor/output/raw_image" to="$(var image_decompressed_topic)"/>
+  </node>
 
   <!-- tag based calibrator -->
   <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/extrinsic_tag_based_calibrator/calibrator.launch.xml" if="$(var calibrate_sensor)">
-    <arg name="ns" value="$(var parent_frame)/$(var camera_name)/camera_link"/>
+    <arg name="ns" value="$(var parent_frame)/$(var camera_name)"/>
     <arg name="parent_frame" value="$(var parent_frame)"/>
     <arg name="child_frame" value="$(var camera_frame)"/>
-    <arg name="image_topic" value="$(var image_rectified_topic)"/>
-    <arg name="camera_info_topic" value="$(var camera_info_rectified_topic)"/>
-    <arg name="apriltag_detections_topic" value="/sensor_kit/$(var parent_frame)/$(var camera_name)/camera_link/apriltag/detection_array"/>
-
-    <arg name="lidar_model" value="$(var lidar_model)"/>
+    <arg name="image_topic" value="$(var image_decompressed_topic)"/>
+    <arg name="camera_info_topic" value="$(var camera_info_topic)"/>
     <arg name="pointcloud_topic" value="$(var pointcloud_topic)"/>
     <arg name="pointcloud_topic_ex" value="$(var camera_info_topic)"/>
+    <arg name="lidar_model" value="$(var lidar_model)"/>
+
+    <arg name="detections" value="/sensor_kit/$(var parent_frame)/$(var camera_name)/apriltag/detection_array"/>
   </include>
+
   <!-- interactive calibrator -->
   <group if="$(var calibrate_sensor)">
-    <push-ros-namespace namespace="$(var parent_frame)/$(var camera_frame)"/>
+    <push-ros-namespace namespace="$(var parent_frame)/$(var camera_name)"/>
 
     <node pkg="extrinsic_interactive_calibrator" exec="interactive_calibrator" name="interactive_calibrator" output="screen">
       <remap from="pointcloud" to="$(var pointcloud_topic)"/>
-      <remap from="image" to="$(var image_rectified_topic)"/>
-      <remap from="camera_info" to="$(var camera_info_rectified_topic)"/>
+      <remap from="image" to="$(var image_compressed_topic)"/>
+      <remap from="camera_info" to="$(var camera_info_topic)"/>
       <remap from="calibration_points_input" to="calibration_points"/>
-      
+
       <param name="camera_parent_frame" value="$(var parent_frame)"/>
       <param name="camera_frame" value="$(var camera_frame)"/>
       <param name="use_calibration_api" value="false"/>
       <param name="can_publish_tf" value="false"/>
-      <param name="use_compressed" value="false"/>
     </node>
 
     <include file="$(find-pkg-share intrinsic_camera_calibration)/launch/optimizer.launch.xml"/>
     <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(var rviz_profile)" if="$(var rviz)"/>
   </group>
-
-  <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/camera_rectified/relay_calibration_points.launch.xml" >
-    <arg name="input_topic" value="/sensor_kit/$(var parent_frame)/$(var camera_name)/camera_link/calibration_points"/>
-    <arg name="output_topic" value="/sensor_kit/$(var parent_frame)/$(var camera_name)/calibration_points"/>
-  </include>
 </launch>
