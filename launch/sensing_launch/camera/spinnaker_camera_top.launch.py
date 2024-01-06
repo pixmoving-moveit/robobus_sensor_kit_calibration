@@ -106,7 +106,7 @@ def launch_setup(context, *args, **kwargs):
     """Launch camera driver node."""
     # parameter_file = LaunchConfig('parameter_file').perform(context)
     # camera_type = LaunchConfig('camera_type').perform(context)
-    serial_number = "22485232"
+    serial_number = "22485228"
     camera_type = 'blackfly_s'
     parameter_file = PathJoinSubstitution(
         [FindPackageShare('robobus_sensor_kit_calibration'), 'launch', 'sensing_launch', 'camera',
