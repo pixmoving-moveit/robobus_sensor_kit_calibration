@@ -44,5 +44,10 @@
             <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/camera_usb_camera_top.launch.py" if="$(eval &quot;'$(var camera_type)' == 'sensing' &quot;)"/>
             <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/spinnaker_camera_top.launch.py" if="$(eval &quot;'$(var camera_type)' == 'flir' &quot;)"/>
 		</group>
+
+        <group>
+			<push-ros-namespace namespace="gnss"/>
+            <include file="$(find-pkg-share robobus_sensor_kit_calibration)/launch/sensing_launch/camera/nmea_udpclient_driver.launch.py" />
+		</group>
     </group>
 </launch>
