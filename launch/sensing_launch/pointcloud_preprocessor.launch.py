@@ -38,7 +38,7 @@ def launch_setup(context, *args, **kwargs):
                     "/sensing/lidar/front/livox/points",
                     "/sensing/lidar/front_left/livox/points",
                     "/sensing/lidar/front_right/livox/points",
-                    "/sensing/lidar/rear/ch128x1/points",
+                    "/sensing/lidar/rear/livox/points",
                 ],
                 "output_frame": 'lidar_front_base_link',
             }
