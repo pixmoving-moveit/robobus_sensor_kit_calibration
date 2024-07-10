@@ -55,13 +55,14 @@ def generate_launch_description():
     parameters={}
     with open(yaml_file_path, 'r') as yaml_file:
         parameters = yaml.safe_load(yaml_file)
-    parameters['pixel_format'] = 'yuyv'
+    parameters['pixel_format'] = 'yuyv2bgra'
     parameters['resize'] = 1
+    parameters['framerate'] = 10.0
     parameters["video_device"] = os.path.realpath(parameters["video_device"])
     ld.add_action(Node(
         package='ros2_v4l2_jetcam', executable='ros2_v4l2_jetcam_node_exe', output='screen',
-        name="usb_cam_camera10_node",
-        namespace='rear_6mm',
+        name="usb_cam_camera7_node",
+        namespace='camera7/image_rect_color',
         parameters=[parameters]
         ))
     return ld

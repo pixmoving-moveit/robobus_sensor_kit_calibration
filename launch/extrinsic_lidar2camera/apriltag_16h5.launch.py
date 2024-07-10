@@ -3,12 +3,13 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
+from launch_ros.actions import Node
 
 # detect all 16h5 tags
 cfg_16h5 = {
     "image_transport": "raw",
     "family": "16h5",
-    "size": 0.8,
+    "size": 0.9,
     "max_hamming": 0,
     "z_up": True,
 }
@@ -20,8 +21,8 @@ def generate_launch_description():
     def add_launch_arg(name: str, default_value=None):
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
-    add_launch_arg("image_topic", "/camera/image")
-    add_launch_arg("camera_info_topic", "/camera/camera_info")
+    add_launch_arg("image_topic", "/sensing/camera/camera6/image_rect_color/image_raw")
+    add_launch_arg("camera_info_topic", "/sensing/camera/camera6/image_rect_color/camera_info")
     add_launch_arg("apriltag_detections_topic", "apriltag/detection_array")
 
     composable_node = ComposableNode(
@@ -36,14 +37,38 @@ def generate_launch_description():
         ],
         parameters=[cfg_16h5],
     )
-
+    
+    composable_viz_node = ComposableNode(
+        name='viz', 
+        package='apriltag_viz', plugin='AprilVizNode',
+        remappings=[
+            ("image", LaunchConfiguration("image_topic")),
+            ("detections", LaunchConfiguration("apriltag_detections_topic"))
+        ],
+        
+    )
     container = ComposableNodeContainer(
         name="tag_container",
         namespace="apriltag",
         package="rclcpp_components",
         executable="component_container",
-        composable_node_descriptions=[composable_node],
+        composable_node_descriptions=[composable_node, composable_viz_node],
         output="screen",
     )
 
     return launch.LaunchDescription(launch_arguments + [container])
+    
+    # node = Node(
+    #     name="apriltag",
+    #     package="apriltag_ros",
+    #     executable="apriltag_node",
+    #     remappings=[
+    #         ("image", LaunchConfiguration("image_topic")),
+    #         ("image_rect", LaunchConfiguration("image_topic")),
+    #         ("camera_info", LaunchConfiguration("camera_info_topic")),
+    #         ("detections", LaunchConfiguration("apriltag_detections_topic")),
+    #     ],
+    #     parameters=[cfg_16h5],
+    # )
+    
+    # return launch.LaunchDescription(launch_arguments + [node])

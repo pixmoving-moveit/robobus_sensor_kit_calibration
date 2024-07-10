@@ -57,11 +57,7 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
-    target_container = (
-        container
-        if UnlessCondition(LaunchConfiguration("use_pointcloud_container")).evaluate(context)
-        else LaunchConfiguration("container_name")
-    )
+    target_container = container
 
     # load concat or passthrough filter
     concat_loader = LoadComposableNodes(
