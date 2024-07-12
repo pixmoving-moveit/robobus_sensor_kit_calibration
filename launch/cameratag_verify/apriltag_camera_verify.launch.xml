@@ -1,5 +1,5 @@
 <launch>
-    <arg name="camera_name" default="top/gmsl"/>
+    <arg name="camera_name" default="camera0"/>
     <let name="image_decompressed_topic" value="/sensing/camera/$(var camera_name)/image_raw/decompressed"/>
     <let name="image_compressed_topic" value="/sensing/camera/$(var camera_name)/image_raw/compressed"/>
     <let name="camera_info_topic" value="/sensing/camera/$(var camera_name)/camera_info"/>

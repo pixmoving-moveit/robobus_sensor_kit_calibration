@@ -14,9 +14,9 @@ def generate_launch_description():
     def add_launch_arg(name: str, default_value=None):
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
-    add_launch_arg("input_image_raw", "/sensing/camera/top/gmsl/image_raw")
-    add_launch_arg("input_camera_info", "/sensing/camera/top/gmsl/camera_info")
-    add_launch_arg("output_image_raw", "/sensing/camera/top/gmsl/rectified")
+    add_launch_arg("input_image_raw", "/sensing/camera/camera0/image_raw")
+    add_launch_arg("input_camera_info", "/sensing/camera/camera0/camera_info")
+    add_launch_arg("output_image_raw", "/sensing/camera/camera0/rectified")
     add_launch_arg("output_camera_info", "/rectified/camera_info")
     # node = Node(
     #   package='output_rectified_image_py',

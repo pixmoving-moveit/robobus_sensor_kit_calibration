@@ -4,7 +4,7 @@
   <let name="sensor_model" value="aip_xx1"/>
   <let name="parent_frame" value="sensor_kit_base_link"/>
 
-  <arg name="camera_name" default="top/gmsl"/>
+  <arg name="camera_name" default="camera0"/>
   <arg name="rviz" default="true"/>
 
   <let name="image_topic" value="/sensing/camera/$(var camera_name)/image_raw"/>
@@ -12,12 +12,12 @@
   <let name="image_decompressed_topic" value="/sensing/camera/$(var camera_name)/decompressed"/>
   <let name="camera_info_topic" value="/sensing/camera/$(var camera_name)/camera_info"/>
 
-  <let name="pointcloud_topic" value="/sensing/lidar/concatenated/pointcloud_raw" />
+  <let name="pointcloud_topic" value="/sensing/lidar/ancillary/ouster/points" />
   <let name="calibrate_sensor" value="true"/>
-  <let name="camera_frame" value="camera_top_link" if="$(eval &quot;'$(var camera_name)' == 'top/gmsl' &quot;)"/>
+  <let name="camera_frame" value="camera_front_link" if="$(eval &quot;'$(var camera_name)' == 'camera0' &quot;)"/>
 
   <!-- extrinsic_calibration_client -->
-  <arg name="src_yaml" default="$(env HOME)/pix/parameter/sensor_kit/robobus_sensor_kit_description/extrinsic_parameters/sensor_kit_calibration.yaml"/>
+  <arg name="src_yaml" default="$(env HOME)/sensor_kit_calibration_input.yaml"/>
   <arg name="dst_yaml" default="$(env HOME)/sensor_kit_calibration.yaml"/>
 
   <node pkg="extrinsic_calibration_client" exec="extrinsic_calibration_client" name="extrinsic_calibration_client" output="screen" if="$(var calibrate_sensor)">

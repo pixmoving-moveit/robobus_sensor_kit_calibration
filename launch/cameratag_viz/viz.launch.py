@@ -13,7 +13,7 @@ def generate_launch_description():
         launch_arguments.append(DeclareLaunchArgument(name, default_value=default_value))
 
     add_launch_arg("image_topic", "/sensing/camera/front/rectified/image_raw")
-    add_launch_arg("detections", "/sensor_kit/sensor_kit_base_link/top/gmsl/apriltag/detection_array")
+    add_launch_arg("detections", "/sensor_kit/sensor_kit_base_link/camera0/apriltag/detection_array")
 
     composable_node = ComposableNode(
                         name='viz', 
